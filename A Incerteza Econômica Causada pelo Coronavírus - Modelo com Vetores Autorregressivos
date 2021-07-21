@@ -1,9 +1,9 @@
-########## INCERTEZA ECON‘MICA - CORONAVÕRUS ###############################
+########## INCERTEZA ECON√îMICA - CORONAV√çRUS ###############################
 
 getwd()
-vari·veis <- read.csv2("macro.csv", header = TRUE, sep = ";", dec = ',')
+vari√°veis <- read.csv2("macro.csv", header = TRUE, sep = ";", dec = ',')
 
-###### InstalaÁ„o e Carregar pacotes #########################
+###### Instala√ß√£o e Carregar pacotes #########################
 
 install.packages("agricolae")
 install.packages("fBasics")
@@ -41,10 +41,10 @@ library(data.table)
 library(seasonal)
 library(xts)
 
-############## Dessazonalizar SÈrie Vendas Varejo ###################
+############## Dessazonalizar S√©rie Vendas Varejo ###################
 checkX13()
 
-vend_var_ts <- ts(vari·veis[,7]) 
+vend_var_ts <- ts(vari√°veis[,7]) 
 vend_var <- as.xts(vend_var_ts)
 
 ajuste_seasonal <- ts(vend_var, frequency = 12, start = c(2002,1))
@@ -53,27 +53,27 @@ tail(ajuste_seasonal)
 ajuste_seasonal
 
 
-plot(vend_var, main = "SÈrie Temporal: Vendas no Varejo", lwd = 2)
+plot(vend_var, main = "S√©rie Temporal: Vendas no Varejo", lwd = 2)
 
 ajuste <- seas(x = ajuste_seasonal)
 summary(ajuste)
 
-#### Gr·fico da SÈrie ajustada #####
+#### Gr√°fico da S√©rie ajustada #####
 plot(ajuste, main = "Vendas no Varejo")
 
-#### Gr·fico dos fatores sazonais ####
+#### Gr√°fico dos fatores sazonais ####
 monthplot(ajuste, col.base = 1, labels = month.abb)
 
 
-#### DiagnÛstico da Sazonalidade #####
+#### Diagn√≥stico da Sazonalidade #####
 qs(ajuste)
 
 vend_var_ajust <- matrix(ajuste$series$s11)
 
 dim(vend_var_ajust)
 
-vari·veis1 <- vari·veis[,-1]
-variaveis <- vari·veis1[,-6]
+vari√°veis1 <- vari√°veis[,-1]
+variaveis <- vari√°veis1[,-6]
 
 variaveis_macro <- cbind(variaveis, vend_var_ajust)
 
@@ -107,26 +107,26 @@ tmp$p.value
 pp_test_list
 
 idx_estacionarias <- unlist(adf_test_list) <= 0.10
-idx_n„o_estacionarias <- unlist(adf_test_list) > 0.10
+idx_n√£o_estacionarias <- unlist(adf_test_list) > 0.10
 
 predict_macro_estacionarias <- variaveis_macro[,idx_estacionarias]
-predict_macro_n„o_estacionarias <- variaveis_macro[,idx_n„o_estacionarias]
+predict_macro_n√£o_estacionarias <- variaveis_macro[,idx_n√£o_estacionarias]
 
 
 head(predict_macro_estacionarias)
-head(predict_macro_n„o_estacionarias)
+head(predict_macro_n√£o_estacionarias)
 
 
-############# Teste de 1∫ diferenÁa das vari·veis macroeconÙmicas - Estacion·ria/ N„o estacion·ria #####
+############# Teste de 1¬∫ diferen√ßa das vari√°veis macroecon√¥micas - Estacion√°ria/ N√£o estacion√°ria #####
 
-predict_macro_n„o_estacionarias_1 <- as.matrix(predict_macro_n„o_estacionarias)
-predict_n„o_estac_diff <- diff(predict_macro_n„o_estacionarias_1)
+predict_macro_n√£o_estacionarias_1 <- as.matrix(predict_macro_n√£o_estacionarias)
+predict_n√£o_estac_diff <- diff(predict_macro_n√£o_estacionarias_1)
 
 
 
 adf_test_list <- list()
-for (i in 1:ncol(predict_n„o_estac_diff)) {
-  tmp <- adf.test(predict_n„o_estac_diff[,i])
+for (i in 1:ncol(predict_n√£o_estac_diff)) {
+  tmp <- adf.test(predict_n√£o_estac_diff[,i])
   p_value <- tmp$p.value
   adf_test_list[[i]] <- p_value
   
@@ -154,7 +154,7 @@ pp_test_list
 
 predict_macro_estacionarias_2 <- predict_macro_estacionarias[-1,]
 
-macro_2 <- cbind(predict_n„o_estac_diff,predict_macro_estacionarias_2)
+macro_2 <- cbind(predict_n√£o_estac_diff,predict_macro_estacionarias_2)
 head(macro_2)
 tail(macro_2)
 
@@ -188,7 +188,7 @@ pp_test_list
 INCERTEZA_ts <- ts(macro_2[,7])
 INCERTEZA_xts <- as.xts(INCERTEZA_ts)
 index(INCERTEZA_xts) = dates
-plot(INCERTEZA_xts, main = "Õndice de Incerteza EconÙmica EPU - Brasil", ylab = "Õndice", xlab = "")
+plot(INCERTEZA_xts, main = "√çndice de Incerteza Econ√¥mica EPU - Brasil", ylab = "√çndice", xlab = "")
 
 dates <- seq.Date(from = as.Date('2002-02-01'), to = as.Date('2020-04-01'), by = 
                     "months")
@@ -201,10 +201,10 @@ VEND_VAR_ts <- ts(macro_2[,5])
 IPCA_ts <- ts(macro_2[,6])
 
 par(mfrow = c(3,3))
-plot(ICC_ts, main = "Õndice de ConfianÁa do Consumidor", ylab = "%", xlab = "")
-plot(TXCAMBIO_ts, main = "Taxa de C‚mbio", ylab = "%", xlab = "")
+plot(ICC_ts, main = "√çndice de Confian√ßa do Consumidor", ylab = "%", xlab = "")
+plot(TXCAMBIO_ts, main = "Taxa de C√¢mbio", ylab = "%", xlab = "")
 plot(SELIC_ts, main = "Selic", ylab = "%", xlab = "")
-plot(PRO_IDT_ts, main = "ProduÁ„o Industrial", ylab = "%", xlab = "")
+plot(PRO_IDT_ts, main = "Produ√ß√£o Industrial", ylab = "%", xlab = "")
 plot(VEND_VAR_ts, main = "Vendas no Varejo", ylab = "%", xlab = "")
 plot(IPCA_ts, main = "IPCA", ylab = "%", xlab = "")
 
@@ -212,14 +212,14 @@ plot(IPCA_ts, main = "IPCA", ylab = "%", xlab = "")
 ################ #VETORES AUTOREGRESSIVOS ########
 
 # PRIMEIRO PASSO
-# Selecionar lag do var (critÈrio)
-VARselect(macro_2, lag.max = 10, type = "both") # ver o mÌnimo dentre os critÈrios
+# Selecionar lag do var (crit√©rio)
+VARselect(macro_2, lag.max = 10, type = "both") # ver o m√≠nimo dentre os crit√©rios
 
 modelo_var <- vars::VAR(macro_2, p = 1)
 summary(modelo_var)
 
 
-# EstimaÁ„o
+# Estima√ß√£o
 testvar = VAR(modelo_var, p = 1)
 summary(testvar)
 
@@ -229,10 +229,10 @@ Psi(testvar, nstep = 1)
 plot(testvar)
 
 
-ser11 = serial.test(modelo_var, lags.pt = 20, type = "PT.asymptotic") # autocorrelÁaı do resÌduo # H0 n„o autocorrelaÁ„o
+ser11 = serial.test(modelo_var, lags.pt = 20, type = "PT.asymptotic") # autocorrel√ßa√µ do res√≠duo # H0 n√£o autocorrela√ß√£o
 ser11$serial
 
-norm1=normality.test(testvar) # NORMALIDADE DO RESÕDUO
+norm1=normality.test(testvar) # NORMALIDADE DO RES√çDUO
 norm1$jb.mul
 
 arch1 = arch.test(testvar, lags.multi = 5) # HETEROCEDASTICIDADE
@@ -241,7 +241,7 @@ arch1$arch.mul
 plot(arch1)
 plot(stability(testvar), nc = 2)
 
-# Teste de causalidade de Granger H0: N„o granger causa
+# Teste de causalidade de Granger H0: N√£o granger causa
 teste <- grangertest(`INCERTEZA` ~ `ICC`, order = 1, data = macro_2)
 teste_1 <- grangertest(`ICC` ~ `INCERTEZA`, order = 1, data = macro_2)
 
@@ -268,7 +268,7 @@ chqtestvar1 = irf(testvar,impulse = "ICC", response = "INCERTEZA", n.ahead = 25,
 
 chqtestvar1
 
-plot(chqtestvar, main = "Choque de Incerteza", ylab = "Õndice de ConfianÁa do Consumidor", xlab = "")
+plot(chqtestvar, main = "Choque de Incerteza", ylab = "√çndice de Confian√ßa do Consumidor", xlab = "")
 plot(chqtestvar1, main = "Choque de ICC", ylab = "Incerteza", xlab = "")
 
 
@@ -276,8 +276,8 @@ chqtestvar2 = irf(testvar,impulse = "INCERTEZA", response = "TXCAMBIO", n.ahead 
 chqtestvar3 = irf(testvar,impulse = "TXCAMBIO", response = "INCERTEZA", n.ahead = 25, boot = T)
 chqtestvar2
 
-plot(chqtestvar2, main = "Choque de Incerteza", ylab = "Taxa de C‚mbio", xlab = "")
-plot(chqtestvar3, main = "Choque na Taxa de C‚mbio", ylab = "Incerteza", xlab = "")
+plot(chqtestvar2, main = "Choque de Incerteza", ylab = "Taxa de C√¢mbio", xlab = "")
+plot(chqtestvar3, main = "Choque na Taxa de C√¢mbio", ylab = "Incerteza", xlab = "")
 
 
 chqtestvar4 = irf(testvar,impulse = "INCERTEZA", response = "SELIC", n.ahead = 25, boot = T)
@@ -292,8 +292,8 @@ chqtestvar6 = irf(testvar,impulse = "INCERTEZA", response = "PRO_IDT", n.ahead =
 chqtestvar7 = irf(testvar,impulse = "PRO_IDT", response = "INCERTEZA", n.ahead = 25, boot = T)
 chqtestvar7
 
-plot(chqtestvar6, main = "Choque de Incerteza ", ylab = "ProduÁ„o Industrial", xlab = "")
-plot(chqtestvar7, main = "Choque na ProduÁ„o Industrial ", ylab = "Incerteza", xlab = "")
+plot(chqtestvar6, main = "Choque de Incerteza ", ylab = "Produ√ß√£o Industrial", xlab = "")
+plot(chqtestvar7, main = "Choque na Produ√ß√£o Industrial ", ylab = "Incerteza", xlab = "")
 
 
 chqtestvar8 = irf(testvar,impulse = "INCERTEZA", response = "VEND_VAR", n.ahead = 25, boot = T)
@@ -312,24 +312,24 @@ plot(chqtestvar10, main = "Choque de Incerteza", ylab = "IPCA", xlab = "")
 plot(chqtestvar11, main = "Choque no IPCA", ylab = "Incerteza", xlab = "")
 
 
-# DecomposiÁ„o da vari‚ncia
+# Decomposi√ß√£o da vari√¢ncia
 dectestvar <- fevd(testvar, n.ahead = 12)
 dectestvar
 plot(dectestvar, legend = T)
 
-# previs„o
+# previs√£o
 predtestvar = predict(testvar, n.ahead = 10, ci = 0.95)
 predtestvar
 plot(predtestvar)
 
 
 
-# cointegraÁ„o
+# cointegra√ß√£o
 cotestvar2 = ca.jo(macro_2, type = "trace", ecdet = "trend", K = 8, spec = "longrun")
 summary(cotestvar2)
 
 
-# previs„o com cointegraÁ„o
+# previs√£o com cointegra√ß√£o
 
 library(tsDyn)
 
@@ -342,7 +342,7 @@ irtestvar2 = irf(vectestvar2, n.ahead = 30, boot = T)
 irtestvar2
 plot(irtestvar2)
 
-# decomposiÁ„o da varincia
+# decomposi√ß√£o da varincia
 dectestvar2 = fevd(vectestvar2, n.ahead = 30); dectestvar2
 plot(dectestvar2)
 
@@ -355,12 +355,12 @@ Teste_perron <- rbind(pp_test_list[[1]],pp_test_list[[2]], pp_test_list[[3]], pp
 Teste_dick                    
 Teste_perron
 
-names <- c("Õndice de ConfianÁa do Consumimdor", "Taxa de C‚mbio","Selic","ProduÁ„o Industrial","Vendas no Varejo", "IPCA",
-               "Õndice de Incerteza")
+names <- c("√çndice de Confian√ßa do Consumimdor", "Taxa de C√¢mbio","Selic","Produ√ß√£o Industrial","Vendas no Varejo", "IPCA",
+               "√çndice de Incerteza")
 teste_geral<- cbind.data.frame(names,Teste_dick, Teste_perron)
 teste_geral
 
-colnames(teste_geral) <- c("", "P-valor da estatÌstica do Teste","P-valor da estatÌstica do Teste")
+colnames(teste_geral) <- c("", "P-valor da estat√≠stica do Teste","P-valor da estat√≠stica do Teste")
 
 teste_geral
 install.packages("xtable")
@@ -372,12 +372,12 @@ xtable(teste_geral)
 teste_granger <- rbind(teste_9)
 head(teste_9)
 
-names <- c("Vendas no Varejo n„o granger-causa ProduÁ„o Industrial")
+names <- c("Vendas no Varejo n√£o granger-causa Produ√ß√£o Industrial")
 teste_geral_granger<- cbind.data.frame(names,teste_granger)
 teste_geral_granger
 
 
-colnames(teste_geral) <- c("ConfianÁa do Consumidor", "Taxa de C‚mbio", "Selic", "ProduÁ„o Industrial", "Vendas no Varejo", "IPCA")
+colnames(teste_geral) <- c("Confian√ßa do Consumidor", "Taxa de C√¢mbio", "Selic", "Produ√ß√£o Industrial", "Vendas no Varejo", "IPCA")
 
 teste_geral
 install.packages("xtable")
@@ -397,7 +397,7 @@ decom_var_geral<- cbind.data.frame(names,decom_var)
 decom_var_geral
 
 
-colnames(teste_geral) <- c("ConfianÁa do Consumidor", "Taxa de C‚mbio", "Selic", "ProduÁ„o Industrial", "Vendas no Varejo", "IPCA")
+colnames(teste_geral) <- c("Confian√ßa do Consumidor", "Taxa de C√¢mbio", "Selic", "Produ√ß√£o Industrial", "Vendas no Varejo", "IPCA")
 
 decom_var_geral
 install.packages("xtable")
