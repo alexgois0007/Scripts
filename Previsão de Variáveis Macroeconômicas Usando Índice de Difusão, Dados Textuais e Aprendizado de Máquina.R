@@ -51,9 +51,6 @@ end_year <- 2019
 qt= paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
            c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
 
-### Alex Gois Path ####
-pathname <- 'C:/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados sobre o Mercado de Trabalho'
-path_name = system.file ("news", package= "TextForecast")
 
 
 news <- get_terms(corpus_dates = qt,
@@ -65,7 +62,7 @@ news <- get_terms(corpus_dates = qt,
                   min_freq = 7,
                   language= "portuguese"
 )
-save.image('/Users/Kellen/Desktop/Alex Góis/MESTRADO/Dados R')
+save.image('/Users/Desktop/MESTRADO/Dados R')
 
 ######################### TF-IDF Function ########################################
 
@@ -93,15 +90,15 @@ tfidfsum1<- function(x) {
 
 #################### Função Para Salvar as Imagens ###########################
 
-save_image <- function(x){'C:/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Imagens do R' 
-  path_image <- 'C:/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Imagens do R'
+save_image <- function(x){'C:/Users/Desktop/MESTRADO/ECONOMETRIA II/Imagens do R' 
+  path_image <- 'C:/Users/Desktop/MESTRADO/ECONOMETRIA II/Imagens do R'
   file_image <- paste0(path_image,"Imagens_R",Sys.Date(),".Rdata")
   save.image(file_image)
   }
 
 
 getwd()
-setwd('/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas')
+setwd('/Users/Desktop/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas')
 #####################################################################################################################################
 
 ####### Calcular Taxas de Desemprego e de Crescimento - Produção Industrial #########################################################################
@@ -529,7 +526,7 @@ for (j in 1:length(fll1_all)) {
     MSE_ER2[j,] <- MSE_ER_tmp
     print(MSE_ER_tmp)
     
-    file_mse <- paste0('/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/','MSE_ER' ,as.character(fll_all[l] * 100) ,'.csv')
+    file_mse <- paste0('/Users/Desktop/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/','MSE_ER' ,as.character(fll_all[l] * 100) ,'.csv')
     write.csv(MSE_ER2, file = file_mse)
     
   }
@@ -755,7 +752,7 @@ for(i in 1:ncol(delta_y)){
 ############# Dados Macroeconômicos ############################################
 
 getwd()
-setwd('/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/Preditores Macroeconômicos')
+setwd('/Users/Desktop/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/Preditores Macroeconômicos')
 
 
 predict_macro <- read.csv2('Preditores.csv', header = TRUE, sep = ";", dec = ',')
@@ -1754,7 +1751,7 @@ for(i in 1:ncol(delta_y)){
  write.csv(tetlock_df_negativo, file = "tetlock_neg.csv")
  
  getwd()
- setwd('/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/Preditores Macroeconômicos')
+ setwd('/Users/Desktop/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/Preditores Macroeconômicos')
  loughran <- read.csv2("loughran_pt.csv", header = TRUE, dec = ";", sep = ',')
  class(loughran)
  head(loughran)
