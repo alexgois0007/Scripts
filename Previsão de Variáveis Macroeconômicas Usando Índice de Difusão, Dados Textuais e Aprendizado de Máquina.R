@@ -1,6 +1,6 @@
 ################################################################################
 
-################### Instalação de Pacotes ######################################
+################### InstalaÃ§Ã£o de Pacotes ######################################
 
 install.packages("TextForecast")
 install.packages("DoMC")
@@ -44,7 +44,7 @@ library(xts)
 
 ##################################################################################
 
-############### Contagem de Palavras e Colocações ################################
+############### Contagem de Palavras e ColocaÃ§Ãµes ################################
 
 st_year <- 2002
 end_year <- 2019
@@ -52,7 +52,7 @@ qt= paste0(sort(rep(seq(from=st_year,to=end_year,by=1),12)),
            c("m1","m2","m3","m4","m5","m6","m7","m8","m9","m10","m11","m12"))
 
 ### Alex Gois Path ####
-pathname <- 'C:/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados sobre o Mercado de Trabalho'
+pathname <- 'C:/Users/Kellen/Desktop/Alex GÃ³is/MESTRADO/ECONOMETRIA II/Dados sobre o Mercado de Trabalho'
 path_name = system.file ("news", package= "TextForecast")
 
 
@@ -65,7 +65,7 @@ news <- get_terms(corpus_dates = qt,
                   min_freq = 7,
                   language= "portuguese"
 )
-save.image('/Users/Kellen/Desktop/Alex Góis/MESTRADO/Dados R')
+save.image('/Users/Kellen/Desktop/Alex GÃ³is/MESTRADO/Dados R')
 
 ######################### TF-IDF Function ########################################
 
@@ -91,33 +91,33 @@ tfidfsum1<- function(x) {
 
 ##############################################################################
 
-#################### Função Para Salvar as Imagens ###########################
+#################### FunÃ§Ã£o Para Salvar as Imagens ###########################
 
-save_image <- function(x){'C:/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Imagens do R' 
-  path_image <- 'C:/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Imagens do R'
+save_image <- function(x){'C:/Users/Kellen/Desktop/Alex GÃ³is/MESTRADO/ECONOMETRIA II/Imagens do R' 
+  path_image <- 'C:/Users/Kellen/Desktop/Alex GÃ³is/MESTRADO/ECONOMETRIA II/Imagens do R'
   file_image <- paste0(path_image,"Imagens_R",Sys.Date(),".Rdata")
   save.image(file_image)
   }
 
 
 getwd()
-setwd('/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas')
+setwd('/Users/Kellen/Desktop/Alex GÃ³is/MESTRADO/ECONOMETRIA II/Dados de SÃ©ries MacroeconÃ´micas')
 #####################################################################################################################################
 
-####### Calcular Taxas de Desemprego e de Crescimento - Produção Industrial #########################################################################
+####### Calcular Taxas de Desemprego e de Crescimento - ProduÃ§Ã£o Industrial #########################################################################
 
 
 ############ Taxa de Desemprego ##############################################
 tx_desemp <- read.csv2('Emprego_Formal.csv', header = TRUE, sep = ";", dec = ',')
-tx_desemp <- as.numeric(tx_desemp$Índice.do.Emprego.Formal)
+tx_desemp <- as.numeric(tx_desemp$Ãndice.do.Emprego.Formal)
 ###############################################################################
 
-#################### Taxa de Crescimento - Produção Industrial ################
+#################### Taxa de Crescimento - ProduÃ§Ã£o Industrial ################
 prod_idt <- read.csv2('producao_industrial.csv', header = TRUE, sep = ';', dec = ',')
 d_prod_idt <- diff(log(as.numeric(prod_idt$Industria_geral)))
 View(news)
 
-################## Excluindo algumas notícias da base de Dados ###############
+################## Excluindo algumas notÃ­cias da base de Dados ###############
 which(qt == '199901')
 which(qt == '200203')
 
@@ -125,7 +125,7 @@ dates = qt
 dates = dates[-(1:2)]
 
 
-################### Combinando as variáveis de noticias #################
+################### Combinando as variÃ¡veis de noticias #################
 cbind(tx_desemp)
 cbind(prod_idt)
 delta_y = cbind(tx_desemp_g[2:nrow(tx_desemp_g),],d_prod_idt)
@@ -163,7 +163,7 @@ kpss.test(delta_y[,2])
 diff(log(tx_desemp))* 100
 
 
-########## Uso do filtro_hp para remover o componente ciclico de uma série temporal ######
+########## Uso do filtro_hp para remover o componente ciclico de uma sÃ©rie temporal ######
 tx_desemp <- as.matrix(tx_desemp)
 tx_desemp_g <- matrix(NA , ncol = ncol(tx_desemp) , nrow = nrow(tx_desemp))
 
@@ -196,7 +196,7 @@ kpss.test(tx_desemp_g)
 
 
 
-################################### Variável Destino  - Delta_y ####################################################################
+################################### VariÃ¡vel Destino  - Delta_y ####################################################################
 delta_y <- diff(log(as.matrix(y)))
 delta_y <- delta_y[inicial_news_delta_y:final_news_delta_y,]
 
@@ -223,7 +223,7 @@ adf.test(z)
 
 ################################################################################
 
-###################### Teste de Diferença #####################################
+###################### Teste de DiferenÃ§a #####################################
 
 x = diff(log(z))
 adf.test(x)
@@ -232,7 +232,7 @@ delta_y = cbind(y[2:length(y)],x)
 
 ################################################################################
 
-################### Classe e Números do Objeto #################################
+################### Classe e NÃºmeros do Objeto #################################
 
 class(y)
 length(y)
@@ -248,7 +248,7 @@ length(x)
 z2 <- as.matrix(news[[1]][1:(nrow(news[[1]])),] )
 dim(z2)
 
-####################### Início e fim dos dados textuais ######################
+####################### InÃ­cio e fim dos dados textuais ######################
 
 inicial_news = which(qt == "2002m4") 
 final_news = which(qt == "2019m12")
@@ -360,7 +360,7 @@ set.seed(12345)
 
 ####################################################################################
 
-########## Previsão para o modelo de Benchmark de passeio aleatório ############
+########## PrevisÃ£o para o modelo de Benchmark de passeio aleatÃ³rio ############
 
 delta_y_rw <- matrix(NA, ncol = ncol(delta_y), nrow = TF)
 for(k in 1:ncol(delta_y)){ 
@@ -377,7 +377,7 @@ for(t in Tini:(T-1)){
   }
 
 
-########### Erro Quadrado Médio da Raiz - delta_news #######################################
+########### Erro Quadrado MÃ©dio da Raiz - delta_news #######################################
 
 
 
@@ -403,7 +403,7 @@ RMSE(delta_news[,2],delta_y_actual[,2])
 RMSE(delta_y_rw[,1],delta_y_actual[,1])
 RMSE(delta_y_rw[,2],delta_y_actual[,2])
 
-############## Calib usando Versão antiga ###################################
+############## Calib usando VersÃ£o antiga ###################################
 
 fll1_all <- seq(from = 500, to = 5000, by = 100)
 MSE_ER2 <- matrix(NA,nrow=length(fll1_all), ncol = ncol(delta_y))
@@ -529,7 +529,7 @@ for (j in 1:length(fll1_all)) {
     MSE_ER2[j,] <- MSE_ER_tmp
     print(MSE_ER_tmp)
     
-    file_mse <- paste0('/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/','MSE_ER' ,as.character(fll_all[l] * 100) ,'.csv')
+    file_mse <- paste0('/Users/Kellen/Desktop/Alex GÃ³is/MESTRADO/ECONOMETRIA II/Dados de SÃ©ries MacroeconÃ´micas/','MSE_ER' ,as.character(fll_all[l] * 100) ,'.csv')
     write.csv(MSE_ER2, file = file_mse)
     
   }
@@ -752,10 +752,10 @@ for(i in 1:ncol(delta_y)){
 }
 
 
-############# Dados Macroeconômicos ############################################
+############# Dados MacroeconÃ´micos ############################################
 
 getwd()
-setwd('/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/Preditores Macroeconômicos')
+setwd('/Users/Kellen/Desktop/Alex GÃ³is/MESTRADO/ECONOMETRIA II/Dados de SÃ©ries MacroeconÃ´micas/Preditores MacroeconÃ´micos')
 
 
 predict_macro <- read.csv2('Preditores.csv', header = TRUE, sep = ";", dec = ',')
@@ -785,28 +785,28 @@ tmp$p.value
 adf_test_list
 
 idx_estacionarias <- unlist(adf_test_list) <= 0.10
-idx_não_estacionarias <- unlist(adf_test_list) > 0.10
+idx_nÃ£o_estacionarias <- unlist(adf_test_list) > 0.10
 
 predict_macro_estacionarias <- predict_macro_1[,idx_estacionarias]
-predict_macro_não_estacionarias <- predict_macro_1[,idx_não_estacionarias]
+predict_macro_nÃ£o_estacionarias <- predict_macro_1[,idx_nÃ£o_estacionarias]
 
 
 head(predict_macro_estacionarias)
-head(predict_macro_não_estacionarias)
-class(predict_macro_não_estacionarias)
+head(predict_macro_nÃ£o_estacionarias)
+class(predict_macro_nÃ£o_estacionarias)
 
 
-############# Teste de 1º diferença das variáveis macroeconômicas - Estacionária/ Não estacionária #####
+############# Teste de 1Âº diferenÃ§a das variÃ¡veis macroeconÃ´micas - EstacionÃ¡ria/ NÃ£o estacionÃ¡ria #####
 
-predict_não_estac_diff <- diff(predict_macro_não_estacionarias)
+predict_nÃ£o_estac_diff <- diff(predict_macro_nÃ£o_estacionarias)
 
 
-predict_macro_não_estacionarias[1,18] <- 717
+predict_macro_nÃ£o_estacionarias[1,18] <- 717
 
 
 adf_test_list <- list()
-for (i in 1:ncol(predict_não_estac_diff)) {
-  tmp <- adf.test(predict_não_estac_diff[,i])
+for (i in 1:ncol(predict_nÃ£o_estac_diff)) {
+  tmp <- adf.test(predict_nÃ£o_estac_diff[,i])
   p_value <- tmp$p.value
   adf_test_list[[i]] <- p_value
   
@@ -815,11 +815,11 @@ for (i in 1:ncol(predict_não_estac_diff)) {
 adf_test_list
 
 
-M <- cbind(predict_macro_estacionarias[-1,],predict_não_estac_diff)
+M <- cbind(predict_macro_estacionarias[-1,],predict_nÃ£o_estac_diff)
 head(M)
 
 
-############ Modelo com dados macroeconômicos ##################################
+############ Modelo com dados macroeconÃ´micos ##################################
 
 delta_macro <- matrix(NA, ncol = ncol(delta_y), nrow = TF) 
 
@@ -1426,7 +1426,7 @@ for(i in 1:ncol(delta_y)){
  } 
  
 
-############## Modelo macroeconômico com fatores ########################################
+############## Modelo macroeconÃ´mico com fatores ########################################
  
  delta_macro_fac <- matrix(NA, ncol = ncol(delta_y), nrow = TF) 
  
@@ -1524,7 +1524,7 @@ for(i in 1:ncol(delta_y)){
  }
  
  
-################## Teste de CW para o modelo macroeconômico de fatores ###############
+################## Teste de CW para o modelo macroeconÃ´mico de fatores ###############
  
  CW_test_macro_fac <- matrix(NA,nrow = 1, ncol = ncol(delta_y))
  
@@ -1534,7 +1534,7 @@ for(i in 1:ncol(delta_y)){
  
 
  
- ###############  Modelo Macroeconômico com lasso #####################################
+ ###############  Modelo MacroeconÃ´mico com lasso #####################################
 
  delta_macro_lasso <- matrix(NA, ncol = ncol(delta_y), nrow = TF) 
  
@@ -1632,7 +1632,7 @@ for(i in 1:ncol(delta_y)){
  }
  
  
-################## Teste de CW para o modelo macroeconômico com lasso ###################
+################## Teste de CW para o modelo macroeconÃ´mico com lasso ###################
  
  CW_test_macro_lasso <- matrix(NA,nrow = 1, ncol = ncol(delta_y))
  
@@ -1701,7 +1701,7 @@ for(i in 1:ncol(delta_y)){
  
  
  
-###################### Modelo com dicionário fixo ###############################
+###################### Modelo com dicionÃ¡rio fixo ###############################
  
  
  library(tidytext)
@@ -1754,7 +1754,7 @@ for(i in 1:ncol(delta_y)){
  write.csv(tetlock_df_negativo, file = "tetlock_neg.csv")
  
  getwd()
- setwd('/Users/Kellen/Desktop/Alex Góis/MESTRADO/ECONOMETRIA II/Dados de Séries Macroeconômicas/Preditores Macroeconômicos')
+ setwd('/Users/Kellen/Desktop/Alex GÃ³is/MESTRADO/ECONOMETRIA II/Dados de SÃ©ries MacroeconÃ´micas/Preditores MacroeconÃ´micos')
  loughran <- read.csv2("loughran_pt.csv", header = TRUE, dec = ";", sep = ',')
  class(loughran)
  head(loughran)
@@ -2113,7 +2113,7 @@ for(k in 1:ncol(delta_y_actual)){
 
 
 
-############# Combinação dos modelos #########################################
+############# CombinaÃ§Ã£o dos modelos #########################################
  
 
 delta_comb_prev <- matrix(NA, nrow = TF, ncol = ncol(delta_y_actual))
@@ -2176,7 +2176,7 @@ par(mfrow = c(1,2))
 plot(Emprego)
 plot(Producao_Industrial)
 
-###################### Seleção de fatores #####################################
+###################### SeleÃ§Ã£o de fatores #####################################
 
 delta_news <- matrix(NA, ncol = ncol(delta_y), nrow = TF) 
 
